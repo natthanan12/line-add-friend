@@ -15,8 +15,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
   })
-
-  app.post("/webhook", function(req, res) {
+app.post("/webhook", function(req, res) {
     res.send("HTTP POST request sent to the webhook URL!")
     // If the user sends a message to your bot, send a reply message
     if (req.body.events[0].type === "message") {
@@ -65,6 +64,6 @@ app.listen(PORT, () => {
   
       // Send data
       request.write(dataString)
-      request.end()
+    //   request.end()
     }
   })
