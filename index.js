@@ -21,6 +21,7 @@ app.listen(PORT, () => {
     // If the user sends a message to your bot, send a reply message
     if (req.body.events[0].type === "message") {
       // Message data, must be stringified
+      console.log(req.body.events[0])
       const dataString = JSON.stringify({
         replyToken: req.body.events[0].replyToken,
         messages: [
