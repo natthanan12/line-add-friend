@@ -38,11 +38,10 @@ app.post("/webhook", function(req, res) {
 
       const requestGetProfile = https.request(getProfile, (res) => {
         res.on("data", (d) => {
-          console.log(data)
+          console.log(d)
           process.stdout.write(d)
         })
       })
-      console.log(requestGetProfile)
       
       const connection = mysql.createConnection({
         host: "erp-test.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
