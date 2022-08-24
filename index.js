@@ -48,10 +48,12 @@ app.post("/webhook", function(req, res) {
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
           console.log("success")
+          connection.end()
         } else {
           console.log(err)
+          connection.end()
+          process.exit(1);
         }
-        connection.end()
       })
     }catch(e){
         process.exit(1)
