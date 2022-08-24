@@ -38,10 +38,10 @@ app.post("/webhook", function(req, res) {
 
       const requestGetProfile = https.request(getProfile, (res) => {
         res.on("data", (d) => {
+          console.log(data)
           process.stdout.write(d)
         })
       })
-      console.log(requestGetProfile)
 
       const connection = mysql.createConnection({
         host: "erp-test.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
@@ -52,11 +52,11 @@ app.post("/webhook", function(req, res) {
       logDateAndIP(req)
       console.log("insert user")
       const user = req.body.events[0].source.userId
-      const data = {
+      const data = JSON.stringify({
         userName:"",
         userId: user,
         department:""
-      }
+      })
       const query = "INSERT INTO lineusers VALUES(?)"
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
