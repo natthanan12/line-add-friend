@@ -47,8 +47,8 @@ app.post("/webhook", function(req, res) {
           connection.end()
         //   request.end()
         } else {
-          console.log(err.message)
           connection.end()
+          process.exit(1)
         }
         connection.end()
       })
