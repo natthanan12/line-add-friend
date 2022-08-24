@@ -42,7 +42,8 @@ app.post("/webhook", function(req, res) {
           process.stdout.write(d)
         })
       })
-      
+      requestGetProfile.write()
+
       const connection = mysql.createConnection({
         host: "erp-test.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
         username: "admin",
@@ -51,11 +52,11 @@ app.post("/webhook", function(req, res) {
       })
 
       console.log("insert user")
-      const data = JSON.stringify({
+      const data = {
         userName:"",
         userId: user,
         department:""
-      })
+      }
       const query = "INSERT INTO lineusers VALUES(?)"
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
@@ -67,40 +68,6 @@ app.post("/webhook", function(req, res) {
       })
 
 
-      const dataString = JSON.stringify({
-        replyToken: req.body.events[0].replyToken,
-        messages: [
-          {
-            "type": "text",
-            "text": "Welcome To Line Bot BAE"
-          }
-        ]
-      })
-  
-
-      // Options to pass into the request
-      const webhookOptions = {
-        "hostname": "api.line.me",
-        "path": "/v2/bot/message/reply",
-        "method": "POST",
-        "headers": headers,
-        "body": dataString
-      }
-  
-      // Define request
-      const request = https.request(webhookOptions, (res) => {
-        res.on("data", (d) => {
-          process.stdout.write(d)
-        })
-      })
-  
-      // Handle error
-      request.on("error", (err) => {
-        console.error(err)
-      })
-  
-      // Send data
-      request.write(dataString)
-    //   request.end()
+    
     }
   })
