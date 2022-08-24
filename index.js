@@ -23,6 +23,7 @@ app.post("/webhook", function(req, res) {
     if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       console.log(req.body.events[0])
+      const user = req.body.events[0].source.userId
 
       const headers = {
         "Content-Type": "application/json",
@@ -30,10 +31,9 @@ app.post("/webhook", function(req, res) {
       }
       const getProfile = {
         "hostname": "api.line.me",
-        "path": "/v2/bot/message/reply",
+        "path": "/v2/bot/profile/"+ user,
         "method": "GET",
         "headers": headers,
-        "body": dataString
       }
 
       const requestGetProfile = https.request(getProfile, (res) => {
@@ -42,16 +42,16 @@ app.post("/webhook", function(req, res) {
           process.stdout.write(d)
         })
       })
-
+      console.log(requestGetProfile)
+      
       const connection = mysql.createConnection({
         host: "erp-test.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
         username: "admin",
         password: "Technician2020!",
         database: "erp_schema",
       })
-      logDateAndIP(req)
+
       console.log("insert user")
-      const user = req.body.events[0].source.userId
       const data = JSON.stringify({
         userName:"",
         userId: user,
