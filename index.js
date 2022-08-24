@@ -16,7 +16,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
   })
-
 app.post("/webhook", function(req, res) {
     res.send("HTTP POST request sent to the webhook URL!")
     // If the user sends a message to your bot, send a reply message
@@ -24,26 +23,6 @@ app.post("/webhook", function(req, res) {
       // Message data, must be stringified
       console.log(req.body.events[0])
       const user = req.body.events[0].source.userId
-
-      const headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + TOKEN
-      }
-      const getProfile = {
-        "hostname": "api.line.me",
-        "path": "/v2/bot/profile/"+ user,
-        "method": "GET",
-        "headers": headers,
-      }
-
-      const requestGetProfile = https.request(getProfile, (res) => {
-        res.on("data", (d) => {
-          console.log(d)
-          process.stdout.write(d)
-        })
-      })
-      requestGetProfile.write()
-
       const connection = mysql.createConnection({
         host: "erp-test.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
         username: "admin",
@@ -60,7 +39,7 @@ app.post("/webhook", function(req, res) {
       const query = "INSERT INTO lineusers VALUES(?)"
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
-          res.json(rows)
+          console.log("success")
         } else {
           console.log(err.message)
         }
@@ -68,6 +47,45 @@ app.post("/webhook", function(req, res) {
       })
 
 
-    
+      const dataString = JSON.stringify({
+        replyToken: req.body.events[0].replyToken,
+        messages: [
+          {
+            "type": "text",
+            "text": "Welcome To Line Bot BAE"
+          }
+        ]
+      })
+  
+      // Request header
+      const headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + TOKEN
+      }
+  
+      // Options to pass into the request
+      const webhookOptions = {
+        "hostname": "api.line.me",
+        "path": "/v2/bot/message/reply",
+        "method": "POST",
+        "headers": headers,
+        "body": dataString
+      }
+  
+      // Define request
+      const request = https.request(webhookOptions, (res) => {
+        res.on("data", (d) => {
+          process.stdout.write(d)
+        })
+      })
+  
+      // Handle error
+      request.on("error", (err) => {
+        console.error(err)
+      })
+  
+      // Send data
+      request.write(dataString)
+    //   request.end()
     }
   })
