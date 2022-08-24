@@ -28,7 +28,6 @@ app.post("/webhook", function(req, res) {
         username: "admin",
         password: "Technician2020!",
         database: "erp_schema",
-        port:3306
       })
 
       console.log("insert user")
