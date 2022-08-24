@@ -19,7 +19,8 @@ app.listen(PORT, () => {
 
   
 app.post("/webhook", function(req, res) {
-    res.send("HTTP POST request sent to the webhook URL!")
+     res.sendStatus(200)
+    // res.send("HTTP POST request sent to the webhook URL!")
     // If the user sends a message to your bot, send a reply message
     if (req.body.events[0].type === "message") {
       // Message data, must be stringified
@@ -44,16 +45,11 @@ app.post("/webhook", function(req, res) {
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
           console.log("success")
-          connection.end()
         //   request.end()
         } else {
-          connection.end()
           process.exit(1)
         }
         connection.end()
       })
-
-
-     
     }
   })
