@@ -28,17 +28,7 @@ app.post("/webhook", function(req, res) {
         username: "admin",
         password: "Technician2020!",
         database: "erp_schema",
-        dialect: "mysql",
-        pool: {
-          max: 20,
-          min: 0,
-          acquire: 600000,
-          idle: 10000
-        },
-        logging: false,
-        dialectOptions: {
-          connectTimeout: 600000
-        }
+        port:3306
       })
 
       console.log("insert user")
