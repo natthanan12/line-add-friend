@@ -32,13 +32,13 @@ app.post("/webhook", function(req, res) {
         ssl: true,
       })
 
-      console.log("insert user")
+      console.log("insert user",user)
       const data = {
         userName:"",
         userId: user,
         department:""
       }
-      const query = "INSERT INTO lineusers VALUES(?)"
+      const query = "INSERT INTO lineusers SET ?"
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
           console.log("success")
