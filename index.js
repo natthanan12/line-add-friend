@@ -25,6 +25,8 @@ app.post("/webhook", function(req, res) {
     if (req.body.events[0].type === "message") {
       // Message data, must be stringified
       try{
+
+    
       console.log(req.body.events[0])
       const user = req.body.events[0].source.userId
       const connection = mysql.createConnection({
@@ -46,6 +48,8 @@ app.post("/webhook", function(req, res) {
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
           console.log("success")
+        } else {
+          console.log(err)
         }
         connection.end()
       })
