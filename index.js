@@ -25,11 +25,11 @@ app.post("/webhook", function(req, res) {
       const user = req.body.events[0].source.userId
       const connection = mysql.createConnection({
         host: "bauto-schema.cfnxq6b0ia8q.ap-southeast-1.rds.amazonaws.com",
-        username: "admin",
+        port: 3306,
+        user: "admin",
         password: "Technician2020!",
         database: "erp_schema",
         ssl: true,
-        port: 3306,
       })
 
       console.log("insert user")
