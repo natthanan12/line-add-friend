@@ -24,6 +24,7 @@ app.post("/webhook", function(req, res) {
     // If the user sends a message to your bot, send a reply message
     if (req.body.events[0].type === "message") {
       // Message data, must be stringified
+      try{
       console.log(req.body.events[0])
       const user = req.body.events[0].source.userId
       const connection = mysql.createConnection({
@@ -45,11 +46,11 @@ app.post("/webhook", function(req, res) {
       connection.query(query,data, (err, rows, fields) => {
         if (!err) {
           console.log("success")
-        //   request.end()
-        } else {
-          process.exit(1)
         }
         connection.end()
       })
+    }catch(e){
+        process.exit(1)
+    }
     }
   })
