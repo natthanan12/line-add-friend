@@ -13,6 +13,7 @@ app.use(
     extended: true,
   })
 )
+console.log("start")
 
 app.get("/", (req, res) => {
   res.sendStatus(200)
