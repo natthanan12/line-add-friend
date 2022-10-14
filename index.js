@@ -5,7 +5,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 const TOKEN =
   process.env.LINE_ACCESS_TOKEN ||
-  "dZ2LaINBI0hiayuo/FpRMi4fsod1dS66LhO4OsW3EdeyiwozxoxeG9pEdjPyQtLco6/rcR3pXQyrfrRReaLS+2JsMmjkTKn3B/qd59634bjIbOu/NPpqM1Js/L/L185+Rgrh+USLMUr3aalUGbyoPAdB04t89/1O/w1cDnyilFU="
+  "xxvcCF4XO+EEyIHzn8Tp+RQlv4LGYY6NgsQQX9itLEciOQ7Mzain74h5TMvvzUofgqcUEQMfClwoExI8pbVGqdrV+TrxpKLr8GZoLUh2GXv50hw5oLqNKMrih93Z1jajL1rMKn53Vg7KulvpQDrHNgdB04t89/1O/w1cDnyilFU="
 
 app.use(express.json())
 app.use(
@@ -13,7 +13,6 @@ app.use(
     extended: true,
   })
 )
-console.log("start")
 
 app.get("/", (req, res) => {
   res.sendStatus(200)
